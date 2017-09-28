@@ -1,8 +1,29 @@
+/*
+* @Author: Abraham Stalin Aguilar Valencia ASAV
+* @follow me: twitter @abrahamstalin
+* This library was created in order to generate pages in long texts.
+* This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*/
 function NituPaginador(params){
-  document.getElementById(params.divElement).style.display= 'none';
   this.params = params;
-  this.currentPage = 0;
-  this.arrayOfPages = [];
+  if (this.params.divElement == null){
+    alert('The "divElement" parameter is necessary');
+  }else if (!document.getElementById(this.params.divElement)){
+    alert('The "divElement['+this.params.divElement+']" no exists');
+  }else{
+    document.getElementById(params.divElement).style.display= 'none';
+    this.currentPage = 0;
+    this.arrayOfPages = [];
+    if (!this.params.lengthWords){
+      this.params.lengthWords = 500;
+    }
+  }
+
+
+
 
   this.makeMagic = function (){
     var countArray = '';
@@ -31,13 +52,16 @@ function NituPaginador(params){
 
   this.paintPage = function (){
     document.getElementById(params.divElement+'_content').innerHTML = this.arrayOfPages[this.currentPage];
-    document.getElementById(params.btnPrevious).disabled = false;
-    document.getElementById(params.btnNext).disabled = false;
-    if (this.currentPage == 0){
-      document.getElementById(params.btnPrevious).disabled = true;
-    }else if (this.currentPage == (this.arrayOfPages.length -1)){
-      document.getElementById(params.btnNext).disabled = true;
+    if (document.getElementById(params.btnNext) && document.getElementById(params.btnPrevious)){
+      document.getElementById(params.btnPrevious).disabled = false;
+      document.getElementById(params.btnNext).disabled = false;
+      if (this.currentPage == 0){
+        document.getElementById(params.btnPrevious).disabled = true;
+      }else if (this.currentPage == (this.arrayOfPages.length -1)){
+        document.getElementById(params.btnNext).disabled = true;
+      }
     }
+
   }
 
   this.nextPage = function (){
@@ -74,5 +98,9 @@ function NituPaginador(params){
   }
 
 
-  this.makeMagic();
+
+  if(document.getElementById(this.params.divElement)){
+    this.makeMagic();
+  }
+
 }
