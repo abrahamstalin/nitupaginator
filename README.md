@@ -14,12 +14,46 @@ como el siguiente:</p>
 
 ```html
 <script src="/build/nitu.paginator.min.js"></script>
+Creamos un paginador con botones customizados.
 <script>
 var paginatorTest= new NituPaginador({
   divElement:'divElementTest',
   lengthWords :400,
   btnPrevious: 'btnPrevious',
   btnNext: 'btnNext'
+});
+</script>
+Agregamos los estilos:
+<style>
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    cursor: auto;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+</style>
+
+Creamos un paginador con barra de navegacion
+<script>
+var paginatorTest= new NituPaginador({
+  divElement:'divElementTest',
+  lengthWords :400,
+  paginationNav:{
+    classNav:'pagination'
+  }
 });
 </script>
 ```

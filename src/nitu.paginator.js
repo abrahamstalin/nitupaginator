@@ -20,6 +20,10 @@ function NituPaginador(params){
     if (!this.params.lengthWords){
       this.params.lengthWords = 500;
     }
+    if (this.params.paginationNav){
+      this.flagMakePaginationNav = true;
+    }
+
   }
 
   this.makeMagic = function (){
@@ -45,8 +49,46 @@ function NituPaginador(params){
     document.getElementById(params.divElement).innerHTML = '<div id="'+params.divElement+'_content"></div><div id="'+params.divElement+'_bar_buttons"></div>';
     document.getElementById(params.divElement).style.display= 'block';
     this.paintPage();
+    if (this.flagMakePaginationNav){
+      this.makePaginationNav(params.divElement+'_bar_buttons');
+    }
   }
 
+  this.makePaginationNav = function (divElementFlagId){
+    this.divElementFlagId = divElementFlagId;
+    if (!this.params.paginationNav){
+      this.params.paginationNav = {'classNav':'pagination'};
+    }
+    var html = '<div class="'+this.params.paginationNav.classNav+'"><a id="'+divElementFlagId+'_el_previous">&laquo;</a>';
+    for (x in this.arrayOfPages){
+      html+= '<a valSel="'+x+'" id="'+divElementFlagId+'_el_'+x+'">'+(parseInt(x)+1)+'</a>';
+    }
+    html += '<a id="'+divElementFlagId+'_el_next">&raquo;</a></div>';
+    document.getElementById(divElementFlagId).innerHTML = html;
+    params.btnPrevious = divElementFlagId+'_el_previous';
+    params.btnNext = divElementFlagId+'_el_next';
+    var selfCustom = this;
+    document.getElementById(divElementFlagId+'_el_previous').addEventListener('click',function (){
+      selfCustom.previousPage();
+    });
+    document.getElementById(divElementFlagId+'_el_next').addEventListener('click',function (){
+      selfCustom.nextPage();
+    });
+    var allAElements = document.querySelectorAll('a[id^="'+this.divElementFlagId+'_el_"]');
+    for (index in allAElements){
+      if (selfCustom.checkIsNode(allAElements[index])){
+        if (allAElements[index].hasAttribute('valSel')){
+          allAElements[index].addEventListener('click',function (){
+            selfCustom.currentPage = this.getAttribute('valSel');
+            selfCustom.paintPage();
+          });
+        }
+      }
+    }
+    var linksCreated = document.querySelector('[id^="'+divElementFlagId+'"]');
+    this.flagMakePaginationNav = true;
+    this.paintPage();
+  }
   this.paintPage = function (){
     document.getElementById(params.divElement+'_content').innerHTML = this.arrayOfPages[this.currentPage];
     if (document.getElementById(params.btnNext) && document.getElementById(params.btnPrevious)){
@@ -57,20 +99,35 @@ function NituPaginador(params){
       }else if (this.currentPage == (this.arrayOfPages.length -1)){
         document.getElementById(params.btnNext).disabled = true;
       }
+      if (this.flagMakePaginationNav){
+        if (document.getElementById(this.divElementFlagId+'_el_'+this.currentPage)){
+          var allAElements = document.querySelectorAll('a[id^="'+this.divElementFlagId+'_el_"]');
+          for (index in allAElements){
+            if (this.checkIsNode(allAElements[index])){
+              if (allAElements[index].hasAttribute('valSel')){
+                allAElements[index].className= '';
+              }
+            }
+          }
+          document.getElementById(this.divElementFlagId+'_el_'+this.currentPage).className += 'active';
+        }
+
+      }
+
     }
 
   }
 
   this.nextPage = function (){
     if ((this.arrayOfPages.length -1) > this.currentPage){
-      this.currentPage = this.currentPage +1;
+      this.currentPage = parseInt(this.currentPage) +1;
       this.paintPage();
     }
   }
 
   this.previousPage = function (){
     if (this.currentPage > 0){
-      this.currentPage = this.currentPage -  1;
+      this.currentPage = parseInt(this.currentPage) -  1;
       this.paintPage();
     }
   }
@@ -93,9 +150,6 @@ function NituPaginador(params){
     }
     return ret;
   }
-
-
-
   if(document.getElementById(this.params.divElement)){
     this.makeMagic();
   }
