@@ -9,14 +9,11 @@
 <div id="divElementTest">
 </div>
 ```
-<p>Importamos la libreria</p>
+<p>Importamos la libreria e inicializamos el componente de NituPaginator enviandole de parametors un JSON
+como el siguiente:</p>
 
 ```html
 <script src="/build/nitu.paginator.min.js"></script>
-```
-<p>Inicializamos el componente de NituPaginator enviandole de parametors un JSON
-como el siguiente</p>
-```html
 <script>
 var paginatorTest= new NituPaginador({
   divElement:'divElementTest',

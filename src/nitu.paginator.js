@@ -22,9 +22,6 @@ function NituPaginador(params){
     }
   }
 
-
-
-
   this.makeMagic = function (){
     var countArray = '';
     var lengthCount = 0;
