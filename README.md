@@ -57,6 +57,18 @@ var paginatorTest= new NituPaginador({
 });
 </script>
 ```
+<p>Tambien podemos definir un div externo en el cual podemos inyectar la barra de navegacion del paginador</p>
+
+```html
+<script>
+  var paginatorTest= new NituPaginador({
+    divElement:'divElementTest',
+    lengthWords :400
+  });
+  paginatorTest.makePaginationNav('customPosition');
+</script>
+
+```
 
 <h4>Parametros </h4>
 <table>
