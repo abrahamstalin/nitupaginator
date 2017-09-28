@@ -16,7 +16,7 @@
 ```
 <p>Inicializamos el componente de NituPaginator enviandole de parametors un JSON
 como el siguiente</p>
-```javascript
+```js
 var paginatorTest= new NituPaginador({
   divElement:'divElementTest',
   lengthWords :400,
