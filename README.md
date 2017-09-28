@@ -16,13 +16,15 @@
 ```
 <p>Inicializamos el componente de NituPaginator enviandole de parametors un JSON
 como el siguiente</p>
-```js
+```html
+<script>
 var paginatorTest= new NituPaginador({
   divElement:'divElementTest',
   lengthWords :400,
   btnPrevious: 'btnPrevious',
   btnNext: 'btnNext'
 });
+</script>
 ```
 
 <h4>Parametros </h4>
