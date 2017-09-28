@@ -70,6 +70,9 @@ var paginatorTest= new NituPaginador({
 
 ```
 
+<h3>Miralo funcionando: </h3>
+
+<a href="https://jsfiddle.net/abrahamstalin/sprd6209/1/">https://jsfiddle.net/abrahamstalin/sprd6209/1/</a>
 <h4>Parametros </h4>
 <table>
 <tr>
